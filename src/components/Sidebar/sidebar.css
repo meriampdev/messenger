@@ -1,0 +1,16 @@
+.conversation-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.conversation-list-tools {
+  position: sticky;
+  top: 0;
+  background: #FFF;
+}
+
+@media (max-width: 900px) {
+  .conversation-list-tools .toolbar-title {
+    display: none;
+  }
+}
