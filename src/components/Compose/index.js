@@ -5,6 +5,7 @@ import { firestore } from "utils/firebase"
 import { 
   doc,
   setDoc,
+  updateDoc,
   arrayUnion,
 } from 'firebase/firestore/lite';
 
@@ -13,14 +14,17 @@ export default function Compose(props) {
   const [message, setMessage] = useState("")
 
   const onSend = () => {
+    let messageObj = {
+      text: message,
+      sentAt: new Date().getTime(),
+      sentBy: messenger?.data?.user?.email
+    }
     setDoc(doc(firestore, "message", messenger?.data?.currentConvo), {
-      messages: arrayUnion({
-        text: message,
-        sentAt: new Date().getTime(),
-        sentBy: messenger?.data?.user?.email
-      })
+      messages: arrayUnion(messageObj)
     }, { merge: true })
-
+    updateDoc(doc(firestore, "conversation", messenger?.data?.currentConvo), 
+      { recentMessage: messageObj }
+    , { merge: true })
     setMessage("")
   }
 

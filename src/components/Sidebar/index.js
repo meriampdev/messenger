@@ -25,7 +25,14 @@ export default function Sidebar(props) {
       querySnapshot.forEach((doc) => {
         let convoData = doc.data()
         let otherMember = convoData?.members?.filter((f) => f !== owner?.email)
-        convos.push({ ...convoData, display: convoData?.membersData[otherMember] });
+        let recentMine = convoData?.recentMessage?.sentBy === owner?.email
+        convos.push({ 
+          ...convoData, 
+          display: { 
+            ...convoData?.membersData[otherMember],
+            text: convoData?.recentMessage ? `${recentMine ? 'You: ' : ''}${convoData?.recentMessage?.text}` : ''
+          } 
+        });
       });
       if(convos?.length > 0) {
         messenger?.setCurrentConvo(convos[0]?.id)
