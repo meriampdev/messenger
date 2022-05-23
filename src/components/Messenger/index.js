@@ -11,7 +11,7 @@ export default function Messenger(props) {
         <Sidebar />
       </div>
 
-      <div className="scrollable content">
+      <div id="content" className="scrollable content">
         <Conversation />
       </div>
     </div>

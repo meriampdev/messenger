@@ -87,11 +87,15 @@ export default function Conversation(props) {
       i += 1;
     }
 
+    setTimeout(() => {
+      var objDiv = document.getElementById("content");
+      objDiv.scrollTo(0, objDiv.scrollHeight)
+    }, 100)
     return tempMessages;
   }
 
     return(
-      <div className="message-list">
+      <div id="message-list" className="message-list">
         <Toolbar
           className="with-shadow"
           title=""
